@@ -67,7 +67,7 @@ const renderMap = () => {
   });
 
   const projection = d3.geoAlbersUsa()
-    .scale(900)
+    .scale(700)
     .translate([svgWidth.value / 2, svgHeight.value / 2]);
 
   const pathGenerator = d3.geoPath().projection(projection);

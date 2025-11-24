@@ -38,7 +38,7 @@ const tooltip = ref({
   data: null
 });
 
-// 3x3 Bivariate color scheme
+
 const bivariateColors = [
   ['#e8e8e8', '#b8d6be', '#73ae80'], // Low income
   ['#b5c0da', '#90b2b3', '#5a9178'], // Medium income
@@ -46,9 +46,7 @@ const bivariateColors = [
 ];
 
 const getBivariateColor = (education, income) => {
-  // Equal bins matching scatterplot background: [15-31.67, 31.67-48.33, 48.33-65]
   const edBin = education < 31.67 ? 0 : education < 48.33 ? 1 : 2;
-  // Equal bins: [25k-45k, 45k-65k, 65k-85k]
   const incBin = income < 45000 ? 0 : income < 65000 ? 1 : 2;
   return bivariateColors[incBin][edBin];
 };
@@ -63,20 +61,17 @@ const renderMap = () => {
   const svgElement = d3.select(svg.value);
   svgElement.selectAll('*').remove();
 
-  // Create state data map
   const stateDataMap = new Map();
   store.combinedData.forEach(d => {
     stateDataMap.set(d.state, d);
   });
 
-  // Create projection
   const projection = d3.geoAlbersUsa()
     .scale(900)
     .translate([svgWidth.value / 2, svgHeight.value / 2]);
 
   const pathGenerator = d3.geoPath().projection(projection);
 
-  // Draw states
   const paths = svgElement.selectAll('path')
     .data(store.geoData.features)
     .enter()
@@ -110,12 +105,11 @@ const renderMap = () => {
       d3.select(this).attr('stroke', '#fff').attr('stroke-width', 1);
     });
 
-  // Click on empty area to clear highlight
+
   svgElement.on('click', () => {
     store.setHighlightedState(null);
   });
 
-  // Update opacity based on brush selection
   const updateBrush = () => {
     paths.attr('opacity', d => {
       if (store.brushedStates.length === 0) return 1;

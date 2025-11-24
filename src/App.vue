@@ -27,15 +27,12 @@
 import { onMounted } from 'vue';
 import { useStore } from '@/stores/store.js';
 
-// Initialize store
 const store = useStore();
 
-// Import components
 import Scatterplot from '@/components/Scatterplot.vue';
 import YearSlider from '@/components/YearSlider.vue';
 import ChoroplethMap from '@/components/ChoroplethMap.vue';
 
-// Load data when component is mounted
 onMounted(() => {
   store.loadData();
 });

@@ -17,10 +17,8 @@
 import { ref, computed } from 'vue';
 import { useStore } from '@/stores/store.js';
 
-// Access the Pinia store
 const store = useStore();
 
-// Computed property for selectedYear, linked to Pinia state
 const selectedYear = computed({
   get: () => store.selectedYear,
   set: (val) => store.changeSelectedYear(val),

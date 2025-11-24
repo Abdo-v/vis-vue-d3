@@ -20,7 +20,7 @@ const margin = { top: 20, right: 20, bottom: 70, left: 70 };
 const width = computed(() => svgWidth.value - margin.left - margin.right);
 const height = computed(() => svgHeight.value - margin.top - margin.bottom);
 
-// 3x3 Bivariate color scheme
+
 const bivariateColors = [
   ['#e8e8e8', '#b8d6be', '#73ae80'], // Low income
   ['#b5c0da', '#90b2b3', '#5a9178'], // Medium income
@@ -37,7 +37,7 @@ const renderChart = () => {
   const svgElement = d3.select(svg.value);
   svgElement.selectAll('*').remove();
 
-  // Create tooltip
+
   const tooltip = d3.select('body')
     .selectAll('.scatter-tooltip')
     .data([null])
@@ -58,7 +58,7 @@ const renderChart = () => {
   const g = svgElement.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
-  // Scales
+
   xScale = d3.scaleLinear()
     .domain([15, 65])
     .range([0, width.value]);
@@ -67,7 +67,6 @@ const renderChart = () => {
     .domain([25000, 85000])
     .range([height.value, 0]);
 
-  // Draw bivariate color grid background (equal bins)
   const edBins = [15, 31.67, 48.33, 65];
   const incBins = [25000, 45000, 65000, 85000];
 
@@ -83,18 +82,18 @@ const renderChart = () => {
     }
   }
 
-  // X axis
+
   g.append('g')
     .attr('class', 'axis axis-x')
     .attr('transform', `translate(0,${height.value})`)
     .call(d3.axisBottom(xScale).ticks(10));
 
-  // Y axis
+
   g.append('g')
     .attr('class', 'axis axis-y')
     .call(d3.axisLeft(yScale).ticks(10).tickFormat(d => `$${d3.format(',')(d)}`));
 
-  // X axis label
+
   g.append('text')
     .attr('class', 'axis-label')
     .attr('x', width.value / 2)
@@ -102,7 +101,7 @@ const renderChart = () => {
     .attr('text-anchor', 'middle')
     .text('Educational Attainment: Bachelor\'s Degree or Higher (%)');
 
-  // Y axis label
+
   g.append('text')
     .attr('class', 'axis-label')
     .attr('transform', 'rotate(-90)')
@@ -111,7 +110,7 @@ const renderChart = () => {
     .attr('text-anchor', 'middle')
     .text('Average Yearly Personal Income (in $)');
 
-  // Brush
+
   const brushG = g.append('g')
     .attr('class', 'brush');
 
@@ -140,7 +139,6 @@ const renderChart = () => {
 
   brushG.call(brush);
 
-  // Data points
   circlesSelection = g.selectAll('.data-point')
     .data(store.combinedData)
     .enter()
@@ -171,7 +169,6 @@ const renderChart = () => {
       tooltip.style('visibility', 'hidden');
     });
 
-  // Update highlighting function
   updateHighlight();
 };
 

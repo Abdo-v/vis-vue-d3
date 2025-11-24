@@ -56,16 +56,13 @@ import { ref, computed, onMounted } from 'vue';
 import * as d3 from 'd3'; 
 import { useStore } from '@/stores/store.js';
 
-// Access the Pinia store
 const store = useStore();
 
-// Reactive variables
 const svgWidth = ref(500);
 const svgHeight = ref(500);
 const svgPadding = { top: 25, right: 20, bottom: 120, left: 60 };
-const chart = ref(null); // Initialize chart reference
+const chart = ref(null); 
 
-// Computed properties for data and scales
 const personaleIncome = computed(() => store.filteredPersonaleIncome);
 const dataMax = computed(() => Math.max(d3.max(personaleIncome.value, d => d.value), 85000));
 const dataMin = computed(() => d3.min(personaleIncome.value, d => d.value));
@@ -89,14 +86,12 @@ const yTicks = computed(() => {
   return Array.from({ length: tickCount + 1 }, (_, i) => Math.round((dataMin.value > 0 ? 0 : dataMin.value) + step * i));
 });
 
-// Handle bar click
 const handleBarClick = (state) => {
   store.changeSelectedState(state);
 };
 
-// Adjust the SVG width based on the chart's client width
+
 onMounted(() => {
-  // Access the chart element and update svgWidth
   if (chart.value) {
     svgWidth.value = chart.value.clientWidth;
   }

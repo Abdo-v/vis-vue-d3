@@ -6,11 +6,11 @@ export const useStore = defineStore({
   state: () => ({
     selectedYear: 2006,
     selectedStates: [],
-    brushedStates: [], // States selected by brush in scatterplot
-    highlightedState: null, // State highlighted from map click
+    brushedStates: [], 
+    highlightedState: null,
     personaleIncome: [],
     baDegreeOrHigher: [],
-    geoData: null, // Store the map GeoJSON data
+    geoData: null, 
   }),
   actions: {
     async loadData() {
@@ -23,7 +23,6 @@ export const useStore = defineStore({
       console.log('Education data loaded:', educationData.length, 'rows');
       console.log('GeoData loaded:', geoData ? 'Yes' : 'No');
       
-      // Assign data to state after loading
       this.personaleIncome = incomeData;
       this.baDegreeOrHigher = educationData;
       this.geoData = geoData;
@@ -62,7 +61,6 @@ export const useStore = defineStore({
           value: +d[state.selectedYear],
         }));
     },
-    // Combined data for scatterplot and choropleth
     combinedData(state) {
       if (!state.personaleIncome || !state.baDegreeOrHigher) return [];
       
